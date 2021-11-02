@@ -84,12 +84,12 @@ private fun OnboardingScreen(onContinueClicked: () -> Unit) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Welcome to the Basics Codelab!")
+            Text("Welcome to the Basics Codelab!!!!")
             Button(
                 modifier = Modifier.padding(vertical = 24.dp),
                 onClick = onContinueClicked
             ) {
-                Text("Continue")
+                Text("ContinueWow")
             }
         }
     }
@@ -161,6 +161,14 @@ private fun CardContent(name: String) {
     }
 }
 
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun OnboardingPreview() {
+    BasicsCodelabTheme {
+        OnboardingScreen(onContinueClicked = {})
+    }
+}
+
 @Preview(
     showBackground = true,
     widthDp = 320,
@@ -175,10 +183,3 @@ fun DefaultPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 320)
-@Composable
-fun OnboardingPreview() {
-    BasicsCodelabTheme {
-        OnboardingScreen(onContinueClicked = {})
-    }
-}
