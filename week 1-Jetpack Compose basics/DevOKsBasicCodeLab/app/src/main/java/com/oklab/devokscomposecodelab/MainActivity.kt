@@ -111,8 +111,8 @@ private fun Greetings(names: List<String> = listOf("World", "Compose")) {
 @Composable
 private fun Greeting(name: String) {
 //    val expanded = remember { mutableStateOf(false) }
-    var expanded by remember { mutableStateOf(false) }
-    var clicks by remember { mutableStateOf(0) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    var clicks by rememberSaveable { mutableStateOf(0) }
 //    val extraPadding = if (expanded.value) 48.dp else 0.dp
 //    val extraPadding by animateDpAsState(
 //        if (expanded) 48.dp else 0.dp
