@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codelab.theming.ui.finish.theme
+package com.codelab.theming.ui.start.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -49,7 +49,7 @@ fun JetnewsTheme(
 ) {
     MaterialTheme(
         colors = if (darkTheme) DarkColors else LightColors,
-        typography = com.codelab.theming.ui.start.theme.JetnewsTypography,
+        typography = JetnewsTypography,
         shapes = JetnewsShapes,
         content = content
     )
