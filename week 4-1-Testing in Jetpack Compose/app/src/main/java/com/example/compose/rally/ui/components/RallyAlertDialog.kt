@@ -28,6 +28,9 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import com.example.compose.rally.ui.theme.RallyDialogThemeOverlay
 
@@ -44,7 +47,7 @@ fun RallyAlertDialog(
             buttons = {
                 Column {
                     Divider(
-                        Modifier.padding(horizontal = 12.dp),
+                        Modifier.padding(horizontal = 12.dp).testTag("AlertDialogTag"),
                         color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
                     )
                     TextButton(
