@@ -44,19 +44,18 @@ import kotlin.random.Random
 @Composable
 fun TodoScreen(
     items: List<TodoItem>,
-    viewModel: TodoViewModel,
-//    onAddItem: (TodoItem) -> Unit,
-//    onRemoveItem: (TodoItem) -> Unit,
-//    onStartEdit: (TodoItem) -> Unit,
-//    onEditItemChange: (TodoItem) -> Unit,
-//    onEditDone: () -> Unit,
+    onAddItem: (TodoItem) -> Unit,
+    onRemoveItem: (TodoItem) -> Unit,
+    onStartEdit: (TodoItem) -> Unit,
+    onEditItemChange: (TodoItem) -> Unit,
+    onEditDone: () -> Unit,
     currentlyEditing: TodoItem?
 ) {
     Column {
         val enableTopSection = currentlyEditing == null
         TodoItemInputBackground(elevate = enableTopSection) {
             if (enableTopSection) {
-                TodoItemEntryInput(viewModel::addItem)
+                TodoItemEntryInput(onAddItem)
             } else {
                 Text(
                     text = "Editing item",
@@ -77,14 +76,14 @@ fun TodoScreen(
                 if (currentlyEditing?.id == todo.id) {
                     TodoItemInlineEditor(
                         item = currentlyEditing,
-                        onEditItemChange = viewModel::onEditItemChange,
-                        onEditDone = viewModel::onEditDone,
-                        onRemoveItem = { viewModel.removeItem(todo) }
+                        onEditItemChange = onEditItemChange,
+                        onEditDone = onEditDone,
+                        onRemoveItem = { onRemoveItem(todo) }
                     )
                 } else {
                     TodoRow(
                         todo = todo,
-                        onItemClicked = { viewModel.onEditItemSelected(it) },
+                        onItemClicked = { onStartEdit(it) } ,
                         modifier = Modifier.fillParentMaxWidth()
                     )
                 }
@@ -93,7 +92,7 @@ fun TodoScreen(
 
         // For quick testing, a random item generator button
         Button(
-            onClick = { viewModel.addItem(generateRandomTodoItem()) },
+            onClick =  { onAddItem(generateRandomTodoItem()) },
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
@@ -140,7 +139,7 @@ fun TodoItemInlineEditor(
     item: TodoItem,
     onEditItemChange: (TodoItem) -> Unit,
     onEditDone: () -> Unit,
-    onRemoveItem: () -> Unit
+    onRemoveItem: (TodoItem) -> Unit
 ) {
     TodoItemInput(
         text = item.task,
@@ -159,7 +158,7 @@ fun TodoItemInlineEditor(
                         modifier = Modifier.width(30.dp)
                     )
                 }
-                TextButton(onClick = onRemoveItem, modifier = shrinkButtons) {
+                TextButton(onClick = { onRemoveItem(item) }, modifier = shrinkButtons) {
                     Text(
                         "❌",
                         textAlign = TextAlign.End,
@@ -249,7 +248,7 @@ fun PreviewTodoScreen() {
         TodoItem("Apply state", TodoIcon.Done),
         TodoItem("Build dynamic UIs", TodoIcon.Square)
     )
-    TodoScreen(items, TodoViewModel(), null)
+    TodoScreen(items, {}, {}, {}, {}, {}, null)
 }
 
 @Preview
